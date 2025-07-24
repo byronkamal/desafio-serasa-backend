@@ -1,0 +1,36 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Adiciona chave SSH ao runner
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Adiciona o host da EC2 aos conhecidos
+        run: |
+          ssh-keyscan -H ec2-18-231-183-197.sa-east-1.compute.amazonaws.com >> ~/.ssh/known_hosts
+
+      - name: Acessa EC2 e faz deploy
+        env:
+          PROJECT_PATH: ${{ secrets.PROJECT_PATH }}
+        run: |
+          ssh -i ~/.ssh/id_rsa ubuntu@ec2-18-231-183-197.sa-east-1.compute.amazonaws.com << 'EOF'
+            cd "$PROJECT_PATH"
+            git pull origin main
+            yarn
+            yarn build
+            pm2 restart all
+          EOF
