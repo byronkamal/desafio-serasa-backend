@@ -18,3 +18,7 @@
 ***<i>commit</i> não destinado à conclusão***
   
 ```[US01] #1 Corrigindo erros ortográficos do documento de arquitetura```
+
+US -> User Story
+TS -> Technical Story
+DOC -> Documentation
