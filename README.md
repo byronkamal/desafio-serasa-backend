@@ -169,9 +169,3 @@ http://localhost:3000/api
 - Validação da área total (área agricultável + área vegetação < áre total)
 - Campos obrigatórios
 - Tratamento de erros
-
-----
-
-## Evoluções
-- Criar Pipeline CI/CD
-- Teste de carga
