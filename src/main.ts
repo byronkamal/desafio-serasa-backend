@@ -14,7 +14,7 @@ async function bootstrap() {
   )
 
   const config = new DocumentBuilder()
-    .setTitle('Desafio Backend API')
+    .setTitle('Desafio Backend - API')
     .setDescription('API para gerenciamento de dados agrícolas')
     .setVersion('1.0')
     .addTag('agricultural')
