@@ -3,7 +3,7 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - teste
+      - develop
 
 jobs:
   deploy:
@@ -23,17 +23,15 @@ jobs:
         run: |
           ssh-keyscan -H ec2-18-231-183-197.sa-east-1.compute.amazonaws.com >> ~/.ssh/known_hosts
 
-      - name: Instala dependências e builda o projeto
-        run: |
-          yarn
-          yarn build
-
-      - name: Copia a pasta dist para a EC2
-        run: |
-          scp -i ~/.ssh/id_rsa -r dist ubuntu@ec2-18-231-183-197.sa-east-1.compute.amazonaws.com:${{ secrets.PROJECT_PATH }}
-
-      - name: Reinicia aplicação na EC2
+      - name: Acessa EC2 e faz deploy
+        env:
+          PROJECT_PATH: ${{ secrets.PROJECT_PATH }}
         run: |
           ssh -i ~/.ssh/id_rsa ubuntu@ec2-18-231-183-197.sa-east-1.compute.amazonaws.com << 'EOF'
+            cd "$PROJECT_PATH"
+            git reset --hard
+            git pull origin main
+            yarn
+            yarn build
             pm2 restart all
           EOF
