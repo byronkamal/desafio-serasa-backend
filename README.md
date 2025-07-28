@@ -1,9 +1,17 @@
-# Desafio Backend - Documentação
+# Desafio Backend
 
 Este projeto implementa uma API RESTful para gerenciamento de produtores rurais e suas plantações, utilizando NestJS, Prisma ORM e PostgreSQL, seguindo os princípios SOLID e Clean Code.
 
-- Disponível em http://ec2-18-231-183-197.sa-east-1.compute.amazonaws.com
-- Documentação Swagger: http://ec2-18-231-183-197.sa-east-1.compute.amazonaws.com/api
+- Disponível em http://ec2-15-228-98-0.sa-east-1.compute.amazonaws.com
+- Documentação Swagger: http://ec2-15-228-98-0.sa-east-1.compute.amazonaws.com/api
+
+</br>
+
+**Políticas do projeto:**
+[Política de Commit](./docs/commits_policy.md)
+[Política de Branch](./docs/branch_workflow.md)
+
+-----
 
 ## Projeto
 
@@ -169,3 +177,26 @@ http://localhost:3000/api
 - Validação da área total (área agricultável + área vegetação < áre total)
 - Campos obrigatórios
 - Tratamento de erros
+
+-----
+
+### 📈 Resultados do Teste de Carga com K6
+
+| Métrica                         | Resultado                    |
+|---------------------------------|------------------------------|
+| 🔢 Total de Requisições         | 7053                         |
+| 👥 Usuários Virtuais (VUs)      | até 500 simultâneos          |
+| ⚡ Requisições por Segundo (RPS)| ~439 req/s                   |
+| ✅ Taxa de Sucesso (status 200) | 98.63% (6957/7053)           |
+| ❌ Taxa de Falhas HTTP          | 1.36% (96/7053)              |
+| ⏱️ Latência Média               | 87.75 ms                     |
+| ⏱️ Mediana de Latência          | 53.66 ms                     |
+| ⏱️ p90 (latência)               | 169.03 ms                    |
+| ⏱️ p95 (latência)               | 263.42 ms                    |
+| 🚀 Duração Média da Iteração    | 1.09 s                       |
+| 📥 Dados Recebidos              | 2.8 MB                       |
+| 📤 Dados Enviados               | 790 KB                       |
+
+- Obs: testes foram realizados apontando para o ambiente de produção - EC2 (AWS)
+
+> 💡 *Os testes indicaram alta estabilidade e baixa latência sob carga. Pequenas falhas (1.36%) devem ser investigadas para garantir máxima confiabilidade.*
